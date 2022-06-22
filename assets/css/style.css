@@ -21,7 +21,6 @@ header {
     float: left;
     width: 25%;
     margin: 5px;
-
 }
 
 .search-button {
@@ -33,15 +32,23 @@ header {
 #current-city {
     border: 2px solid black;
     display: flex;
+    flex-direction: column;
     width: 74%;
     margin: 5px;
+}
 
+#current-city-name {
+    border: 2px solid black;
+}
+
+#city-stats {
+    border: 2px solid black;
 }
 
 #five-day-forecast {
     border: 2px solid black;
     display: flex;
+    flex-direction: column;
     width: 74%;
     margin: 5px;
-
 }
