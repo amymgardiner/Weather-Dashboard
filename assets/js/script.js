@@ -15,6 +15,21 @@ var getWeather = function(lat, lon) {
 
 };
 
+var getLatLon = function (zipCode) {
+    var zipApi = `http://api.openweathermap.org/geo/1.0/zip?zip=${zipCode}&appid=${apiKey}`
+
+    fetch(zipApi)
+    .then(function(response) {
+        console.log(response);
+        response.json().then(function(data) {
+            console.log(data);
+        });
+
+    });
+};
+
+getLatLon("63139");
+
 getWeather("38.6108", "-90.292");
   
 
