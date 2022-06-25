@@ -3,14 +3,27 @@ searchBtn = document.querySelector(".search-button");
 
 
 var getWeather = function(lat, lon) {
-    var weatherApi = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+    var weatherApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
 
     fetch(weatherApi)
     .then(function(response) {
-        console.log(response);
-        response.json().then(function(data) {
-            console.log(data);
-        });
+        if(response.ok){
+            response.json().then(function(data){
+            var temp = data.current.temp
+            var wind = data.current.wind_speed
+            var humidity = data.current.humidity
+            var uvIndex = data.current.uvi
+            console.log(uvIndex)
+            var displayTemp = document.querySelector("#temp")
+            displayTemp.innerHTML = temp
+
+            var displayWind = document.querySelector("#wind")
+            displayWind.innerHTML = wind
+            
+            var displayHumidity = document.querySelector("#humidity")
+            displayHumidity.innerHTML = humidity
+            })
+        }  
     });
 };
 
