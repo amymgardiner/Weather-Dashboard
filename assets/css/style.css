@@ -1,3 +1,4 @@
+/* header */
 header {
     color: #80CED7;
     font-size: 3rem;
@@ -11,6 +12,7 @@ header {
     padding: 25px 0 25px 0;
 }
 
+/* side div with search bar and list of cities to select from */
 #aside {
     border: 2px solid black;
     display: flex;
@@ -23,28 +25,44 @@ header {
     margin: 5px;
 }
 
+.search-bar {
+    width: 100%;
+}
+
 .search-button {
     background-color: #1282A2;
     color: #FEFCFB;
     width: 100%;
 }
 
+.cities {
+    margin: 5px;
+    width: 100%;
+}
+
+/* main body top div */
 #current-city {
     border: 2px solid black;
     display: flex;
     flex-direction: column;
     width: 74%;
+    height: 250px;
     margin: 5px;
 }
 
 #current-city-name {
-    border: 2px solid black;
+    margin: 3px;
+    
 }
 
 #city-stats {
-    border: 2px solid black;
 }
 
+.stats {
+    padding: 10px;
+}
+
+/* main body bottom div */
 #five-day-forecast {
     border: 2px solid black;
     display: flex;

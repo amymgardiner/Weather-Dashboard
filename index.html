@@ -14,22 +14,22 @@
 <body>
     <header id="title">Weather Dashboard</header>
 
-    <div id="aside">
+    <div id="aside" class="container">
         <h2 class="mb-3 mt-2">Search For A City:</h2>
 
-        <form class="search-bar">
-            <input class="form-control mb-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="search-bar border-bottom border-dark">
+            <input class=" form-control mb-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn mb-3 search-button" type="submit">Search</button>
         </form>
 
-        <div id="austin">Austin</div>
-        <div id="chicago">Chicago</div>
-        <div id="new-york">New York</div>
-        <div id="orlando">Orlando</div>
-        <div id="san-franciso">San Francisco</div>
-        <div id="seattle">Seattle</div>
-        <div id="denver">Denver</div>
-        <div id="atlanta">Atlanta</div>
+        <button type="button" id="austin" class="cities mt-4">Austin</button>
+        <button type="button" id="chicago" class="cities">Chicago</button>
+        <button type="button" id="new-york" class="cities">New York</button>
+        <button type="button" id="orlando" class="cities">Orlando</button>
+        <button type="button" id="san-franciso" class="cities">San Francisco</button>
+        <button type="button" id="seattle" class="cities">Seattle</button>
+        <button type="button" id="denver" class="cities">Denver</button>
+        <button type="button" id="atlanta" class="cities">Atlanta</button>
     </div>
 
     <div id="current-city">
@@ -38,10 +38,10 @@
         </div>
         <div id="city-stats">
             <ul>
-                <li>Temp:</li>
-                <li>Wind:</li>
-                <li>Humidity:</li>
-                <li>UV Index:</li>
+                <li class="stats">Temp:</li>
+                <li class="stats">Wind:</li>
+                <li class="stats">Humidity:</li>
+                <li class="stats">UV Index:</li>
             </ul>
         </div>
     </div>
