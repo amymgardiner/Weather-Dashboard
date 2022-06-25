@@ -70,3 +70,8 @@ header {
     width: 74%;
     margin: 5px;
 }
+
+.days {
+    border: 2px solid black;
+    margin: 5px;
+}
