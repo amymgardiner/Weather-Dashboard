@@ -11,9 +11,7 @@ var getWeather = function(lat, lon) {
         response.json().then(function(data) {
             console.log(data);
         });
-
     });
-
 };
 
 var getLatLon = function(zipCode) {
@@ -25,7 +23,10 @@ var getLatLon = function(zipCode) {
             response.json().then(function(data){
                 var lon = data.lon
                 var lat = data.lat
+                var cityName = data.name
                 getWeather(lat, lon);
+                var cityTitle = document.querySelector("#city-name")
+                cityTitle.innerHTML = cityName;
             })
         }
     });

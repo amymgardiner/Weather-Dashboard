@@ -15,38 +15,31 @@
     <header id="title">Weather Dashboard</header>
 
     <div id="aside" class="container">
-        <h2 class="mb-3 mt-2">Search For A City:</h2>
+        <h2 class="mb-3 mt-2">Find A City:</h2>
 
         <form class="search-bar border-bottom border-dark">
-            <input class="form-control mb-2" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control mb-2" type="search" placeholder="Search By Zip Code" aria-label="Search">
             <button class="btn mb-3 search-button" type="submit">Search</button>
         </form>
 
-        <button type="button" id="austin" class="cities mt-4">Austin</button>
-        <button type="button" id="chicago" class="cities">Chicago</button>
-        <button type="button" id="new-york" class="cities">New York</button>
-        <button type="button" id="orlando" class="cities">Orlando</button>
-        <button type="button" id="san-franciso" class="cities">San Francisco</button>
-        <button type="button" id="seattle" class="cities">Seattle</button>
-        <button type="button" id="denver" class="cities">Denver</button>
-        <button type="button" id="atlanta" class="cities">Atlanta</button>
+        <!-- <button type="button" class="cities"></button> -->
     </div>
-
-    <div id="current-city" class="container">
-        <div id="current-city-name">
-            <h2>Current City</h2>
+    <main>
+        <div id="current-city" class="container">
+            <div id="current-city-name">
+                <h2 id="city-name"></h2>
+            </div>
+            <div id="city-stats" class="container">
+                <ul>
+                    <li class="stats"></li>
+                    <li class="stats"></li>
+                    <li class="stats"></li>
+                    <li class="stats"></li>
+                </ul>
+            </div>
         </div>
-        <div id="city-stats" class="container">
-            <ul>
-                <li class="stats">Temp:</li>
-                <li class="stats">Wind:</li>
-                <li class="stats">Humidity:</li>
-                <li class="stats">UV Index:</li>
-            </ul>
-        </div>
-    </div>
 
-    <div id="five-day-forecast" class="container">
+        <!-- <div id="five-day-forecast" class="container">
         <h3>5 Day Forecast</h3>
         <div class="container">
             <div class="row">
@@ -57,7 +50,8 @@
                 <div class="days col">Day 5</div>
             </div>
         </div>
-    </div>
+    </div> -->
+    </main>
 
     <script src="./assets/js/script.js"></script>
 </body>

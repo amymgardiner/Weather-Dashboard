@@ -27,6 +27,7 @@ header {
 
 .search-bar {
     width: 100%;
+    /* height: 255px; */
 }
 
 .search-button {
@@ -45,7 +46,9 @@ header {
     border: 2px solid black;
     display: flex;
     flex-direction: column;
-    width: 74%;
+    flex-wrap: wrap;
+    float: right;
+    width: 72%;
     height: 250px;
     margin: 5px;
 }
@@ -67,7 +70,9 @@ header {
     border: 2px solid black;
     display: flex;
     flex-direction: column;
-    width: 74%;
+    float: right;
+    flex-wrap: wrap;
+    width: 72%;
     margin: 5px;
 }
 
