@@ -1,4 +1,5 @@
 var apiKey = "66bf34535fb3ce4cc5102bab886f4c2b";
+searchBtn = document.querySelector(".search-button");
 
 
 var getWeather = function(lat, lon) {
@@ -15,7 +16,7 @@ var getWeather = function(lat, lon) {
 
 };
 
-var getLatLon = function (zipCode) {
+var getLatLon = function(zipCode) {
     var zipApi = `http://api.openweathermap.org/geo/1.0/zip?zip=${zipCode}&appid=${apiKey}`
 
     fetch(zipApi)
@@ -30,5 +31,10 @@ var getLatLon = function (zipCode) {
     });
 };
 
-getLatLon("63139");
+var getZipCode = function(event) {
+    event.preventDefault();
+    var zipCode = document.querySelector(".form-control").value.trim();
+    getLatLon(zipCode);
+};
 
+searchBtn.addEventListener("click", getZipCode);
