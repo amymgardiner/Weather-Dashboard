@@ -20,16 +20,15 @@ var getLatLon = function (zipCode) {
 
     fetch(zipApi)
     .then(function(response) {
-        console.log(response);
-        response.json().then(function(data) {
-            console.log(data);
-        });
-
+        if(response.ok){
+            response.json().then(function(data){
+                var lon = data.lon
+                var lat = data.lat
+                getWeather(lat, lon);
+            })
+        }
     });
 };
 
 getLatLon("63139");
-
-getWeather("38.6108", "-90.292");
-  
 
