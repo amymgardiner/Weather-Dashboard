@@ -43,10 +43,8 @@ header {
 
 /* main body top div */
 #current-city {
-    border: 2px solid black;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     float: right;
     width: 72%;
     height: 250px;
@@ -63,6 +61,7 @@ header {
 
 .stats {
     padding: 10px;
+    font-size: 20px;
 }
 
 /* main body bottom div */
