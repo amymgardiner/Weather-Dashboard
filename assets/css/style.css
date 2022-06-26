@@ -47,8 +47,12 @@ header {
     flex-direction: column;
     float: right;
     width: 72%;
-    height: 250px;
+    height: 260px;
     margin: 5px;
+}
+
+.div-color {
+    background-color: #ADE8F4;
 }
 
 #current-city-name {

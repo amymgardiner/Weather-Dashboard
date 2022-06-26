@@ -1,5 +1,6 @@
 var apiKey = "66bf34535fb3ce4cc5102bab886f4c2b"
 searchBtn = document.querySelector(".search-button")
+var cityTitle = document.querySelector("#city-name")
 
 
 // function to get city's zip code from user - then that zip code is saved and used to call the next function
@@ -26,10 +27,9 @@ var getLatLon = function(zipCode) {
 
                 // get city name from api and display on screen
                 var cityName = data.name
-                var cityTitle = document.querySelector("#city-name")
                 cityTitle.innerHTML = cityName;
                 var cityDiv = document.querySelector("#current-city")
-                cityDiv.classList = "border border-dark"
+                cityDiv.classList = "border border-dark div-color"
             })
         } else {
             displayError()
@@ -41,7 +41,6 @@ var getLatLon = function(zipCode) {
 // function to use timezone from weather api to display today's date after the current city is displayed
 var todayDate = function(timeZone) {
     var date = luxon.DateTime.now().setZone(`${timeZone}`).toFormat('MM-dd-yyyy')
-    var cityTitle = document.querySelector("#city-name")
     cityTitle.innerHTML += "  " + `${date}`
 }
 
@@ -56,6 +55,10 @@ var getWeather = function(lat, lon) {
             response.json().then(function(data){
             var timeZone = data.timezone
             todayDate(timeZone)
+
+            var currentIcon = data.current.weather[0].icon
+            cityTitle.innerHTML += "  " + `<img src="http://openweathermap.org/img/wn/${currentIcon}.png">`
+
 
             var temp = data.current.temp
             var wind = data.current.wind_speed
@@ -95,3 +98,14 @@ closeButton.addEventListener("click", function closeButtonHandler() {
 
 // all functions run after user enters in a zip code and clicks the search button
 searchBtn.addEventListener("click", getZipCode)
+
+
+
+
+
+// var dayOneTimeStamp = data.daily[0].dt
+// var millisecond = dayOneTimeStamp * 1000
+// var dateObject = new Date(millisecond)
+// var humanDateFormat = luxon.DateTime.now(dateObject).setZone(`${timeZone}`).toFormat('MM-dd-yyyy')
+// var displaydayOne = document.querySelector(".dayone")
+// displaydayOne.innerHTML = humanDateFormat
