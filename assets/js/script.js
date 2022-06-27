@@ -11,6 +11,11 @@ var getZipCode = function(event) {
     getLatLon(zipCode)
 }
 
+var pastSearchHandler = function(event){
+    getWeather(storedSearches.lat)
+}
+
+
 
 // the zip code from the precious code is used to get the city's name for the HTML and used to get the latitude and longitude
 // the lat and lon are used to call the next function
@@ -21,6 +26,7 @@ var getLatLon = function(zipCode) {
     .then(function(response) {
         if(response.ok){
             response.json().then(function(data){
+
                 // get lat and lon for next function
                 var lon = data.lon
                 var lat = data.lat
@@ -34,9 +40,12 @@ var getLatLon = function(zipCode) {
                 var cityName = data.name
                 cityTitle.innerHTML = cityName;
 
-                localStorage.setItem("recentSearch", cityName)
-                var recentSearch = localStorage.getItem("recentSearch")
-                cityButtons.innerHTML += `<button type="button" class="cities">${recentSearch}</button>`
+                // localStorage.setItem("recentSearch", cityName)
+                localStorage.setItem("recentSearch", JSON.stringify(data))
+
+                var storedSearches = JSON.parse(localStorage.getItem("recentSearch"));
+                console.log(storedSearches)
+                cityButtons.innerHTML += `<button type="button" class="btn cities">${storedSearches.name}</button>`
             })
         } else {
             displayError()
@@ -156,3 +165,4 @@ closeButton.addEventListener("click", function closeButtonHandler() {
 
 // all functions run after user enters in a zip code and clicks the search button
 searchBtn.addEventListener("click", getZipCode)
+cityButtons.addEventListener("click", pastSearchHandler);
