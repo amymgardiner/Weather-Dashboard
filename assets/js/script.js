@@ -56,7 +56,7 @@ var getWeather = function(lat, lon) {
 
             // display current weather icon and date from time zone in after current city name
             var currentIcon = data.current.weather[0].icon
-            cityTitle.innerHTML += "  " + `${date}` + `<img src="http://openweathermap.org/img/wn/${currentIcon}.png">`
+            cityTitle.innerHTML += "  " + `${date}` + `<img src="https://openweathermap.org/img/wn/${currentIcon}.png">`
 
             // display current weather temp, wind, humidity, and index
             var temp = data.current.temp
@@ -118,11 +118,11 @@ var fivedayForecast = function (lat, lon) {
                     document.getElementById("dayfour").innerHTML = luxon.DateTime.fromMillis((data.daily[4].dt * 1000)).toFormat('MM-dd-yyyy')
                     document.getElementById("dayfive").innerHTML = luxon.DateTime.fromMillis((data.daily[5].dt * 1000)).toFormat('MM-dd-yyyy')
 
-                    document.getElementById("dayone-icon").innerHTML = `<img src="http://openweathermap.org/img/wn/${data.daily[1].weather[0].icon}.png">`
-                    document.getElementById("daytwo-icon").innerHTML = `<img src="http://openweathermap.org/img/wn/${data.daily[2].weather[0].icon}.png">`
-                    document.getElementById("daythree-icon").innerHTML = `<img src="http://openweathermap.org/img/wn/${data.daily[3].weather[0].icon}.png">`
-                    document.getElementById("dayfour-icon").innerHTML = `<img src="http://openweathermap.org/img/wn/${data.daily[4].weather[0].icon}.png">`
-                    document.getElementById("dayfive-icon").innerHTML = `<img src="http://openweathermap.org/img/wn/${data.daily[5].weather[0].icon}.png">`
+                    document.getElementById("dayone-icon").innerHTML = `<img src="https://openweathermap.org/img/wn/${data.daily[1].weather[0].icon}.png">`
+                    document.getElementById("daytwo-icon").innerHTML = `<img src="https://openweathermap.org/img/wn/${data.daily[2].weather[0].icon}.png">`
+                    document.getElementById("daythree-icon").innerHTML = `<img src="https://openweathermap.org/img/wn/${data.daily[3].weather[0].icon}.png">`
+                    document.getElementById("dayfour-icon").innerHTML = `<img src="https://openweathermap.org/img/wn/${data.daily[4].weather[0].icon}.png">`
+                    document.getElementById("dayfive-icon").innerHTML = `<img src="https://openweathermap.org/img/wn/${data.daily[5].weather[0].icon}.png">`
 
                     document.getElementById("dayone-temp").innerHTML = "Temp: " + data.daily[1].temp.day
                     document.getElementById("daytwo-temp").innerHTML = "Temp: " + data.daily[2].temp.day
