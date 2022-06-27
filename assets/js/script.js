@@ -75,9 +75,27 @@ var getWeather = function(lat, lon) {
 
             var displayUV = document.querySelector("#uv")
             displayUV.innerHTML = "UV Index: " + uvIndex
+            
+            uvIndexColor(uvIndex)
             })
         }  
     })
+}
+
+// function to display uv index level with color codes from bootstrap
+var uvIndexColor = function(uvIndex) {
+    var uvColor = document.querySelector("#uv")
+    if(uvIndex < 3) {
+        uvColor.classList = "bg-primary stats"
+    } else if(uvIndex < 6) {
+        uvColor.classList = "bg-success stats"
+    } else if(uvIndex < 8) {
+        uvColor.classList = "bg-warning stats"
+    } else if(uvIndex < 11) {
+        uvColor.classList = "bg-danger stats"
+    } else {
+        uvColor.classList = "bg-dark stats"
+    }
 }
 
 
