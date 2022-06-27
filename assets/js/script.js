@@ -12,7 +12,7 @@ var recentSearch = JSON.parse(localStorage.getItem("recentsearch"))
 var getZipCode = function(event) {
     event.preventDefault()
     var zipCode = document.querySelector(".form-control").value.trim()
-    var zipApi = `http://api.openweathermap.org/geo/1.0/zip?zip=${zipCode}&appid=${apiKey}`
+    var zipApi = `https://api.openweathermap.org/geo/1.0/zip?zip=${zipCode}&appid=${apiKey}`
    
     fetch(zipApi)
     .then(function(response) {
