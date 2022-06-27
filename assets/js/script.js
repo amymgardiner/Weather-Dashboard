@@ -41,13 +41,6 @@ var getZipCode = function(event) {
 }
 
 
-// function to use timezone from weather api to display today's date after the current city is displayed
-var todayDate = function(timeZone) {
-    var date = luxon.DateTime.now().setZone(`${timeZone}`).toFormat('MM-dd-yyyy')
-    cityTitle.innerHTML += "  " + `${date}`
-}
-
-
 // the weather app is finally called to get the rest of the html weather information using the lat and lon
 var getWeather = function(lat, lon) {
     searchValue.value = ""
@@ -59,12 +52,11 @@ var getWeather = function(lat, lon) {
             response.json().then(function(data){
             // get time zone and send to time zone function to display in current weather section
             var timeZone = data.timezone
-            todayDate(timeZone)
+            var date = luxon.DateTime.now().setZone(`${timeZone}`).toFormat('MM-dd-yyyy')
 
-            // display current weather icon
+            // display current weather icon and date from time zone in after current city name
             var currentIcon = data.current.weather[0].icon
-            cityTitle.innerHTML += "  " + `<img src="http://openweathermap.org/img/wn/${currentIcon}.png">`
-
+            cityTitle.innerHTML += "  " + `${date}` + `<img src="http://openweathermap.org/img/wn/${currentIcon}.png">`
 
             // display current weather temp, wind, humidity, and index
             var temp = data.current.temp

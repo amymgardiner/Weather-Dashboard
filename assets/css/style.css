@@ -40,6 +40,10 @@ header {
     width: 100%;
 }
 
+.recent-searches {
+    text-align: center;
+}
+
 /* main body top div */
 #current-city {
     display: flex;
@@ -97,3 +101,20 @@ header {
 .div-colorthree {
     background-color: #023E8A;
 }
+
+@media only screen and (max-width: 715px) {
+    #aside {
+        float: center;
+        width: 100%;
+    }
+
+    #current-city {
+        float: none;
+        width: 100%;
+    }
+
+    #five-day-forecast {
+        float: none;
+        width: 100%;
+    }
+  }
