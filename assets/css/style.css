@@ -1,3 +1,8 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
 /* header */
 header {
     color: #80CED7;
@@ -98,23 +103,41 @@ header {
     font-size: 15px;
 }
 
-.div-colorthree {
-    background-color: #023E8A;
-}
 
-@media only screen and (max-width: 715px) {
+/* media query for screens smaller than laptop */
+@media only screen and (max-width: 840px) {
+    
+    header {
+        margin-bottom: 5px;
+    }
+
     #aside {
-        float: center;
+        float: none;
         width: 100%;
+        margin: auto;
+        text-align: center;
     }
 
     #current-city {
         float: none;
         width: 100%;
+        text-align: center;
     }
 
     #five-day-forecast {
         float: none;
         width: 100%;
+        text-align: center;
     }
-  }
+}
+
+@media only screen and (max-width: 420px) {
+
+    header {
+        text-align: center;
+    }
+
+     #current-city {
+        height: max-content;
+     }
+}
