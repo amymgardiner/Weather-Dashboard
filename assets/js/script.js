@@ -1,6 +1,7 @@
 var apiKey = "66bf34535fb3ce4cc5102bab886f4c2b"
 searchBtn = document.querySelector(".search-button")
 var cityTitle = document.querySelector("#city-name")
+var cityButtons = document.querySelector("#city-buttons")
 
 
 // function to get city's zip code from user - then that zip code is saved and used to call the next function
@@ -26,11 +27,16 @@ var getLatLon = function(zipCode) {
                 getWeather(lat, lon)
                 fivedayForecast(lat, lon)
 
+                var cityDiv = document.querySelector("#current-city")
+                cityDiv.classList = "border border-dark div-color"
+
                 // get city name from api and display on screen in current weather section
                 var cityName = data.name
                 cityTitle.innerHTML = cityName;
-                var cityDiv = document.querySelector("#current-city")
-                cityDiv.classList = "border border-dark div-color"
+
+                localStorage.setItem("recentSearch", cityName)
+                var recentSearch = localStorage.getItem("recentSearch")
+                cityButtons.innerHTML += `<button type="button" class="cities">${recentSearch}</button>`
             })
         } else {
             displayError()
@@ -85,6 +91,9 @@ var getWeather = function(lat, lon) {
     })
 }
 
+
+// five day forecast function to fetch from weather api, loop through daily array, grab info from first five days
+// displays on screen under current day's weather
 var fivedayForecast = function (lat, lon) {
     var weatherApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`
 
@@ -95,9 +104,6 @@ var fivedayForecast = function (lat, lon) {
 
                 document.getElementById("forecast").textContent = "Five Day Forecast"
                 document.getElementById("five-day-forecast").classList = "border border-dark div-colortwo"
-
-                for(var i = 0; i < data.daily.length; i++) {
-                    if (i === 5) { break; }
 
                     document.getElementById("dayone").innerHTML = luxon.DateTime.fromMillis((data.daily[0].dt * 1000)).toFormat('MM-dd-yyyy')
                     document.getElementById("daytwo").innerHTML = luxon.DateTime.fromMillis((data.daily[1].dt * 1000)).toFormat('MM-dd-yyyy')
@@ -123,13 +129,11 @@ var fivedayForecast = function (lat, lon) {
                     document.getElementById("dayfour-wind").innerHTML = "Wind: " + data.daily[3].wind_speed
                     document.getElementById("dayfive-wind").innerHTML = "Wind: " + data.daily[4].wind_speed
 
-
                     document.getElementById("dayone-humidity").innerHTML = "Humidity: " + data.daily[0].humidity
                     document.getElementById("daytwo-humidity").innerHTML = "Humidity: " + data.daily[1].humidity
                     document.getElementById("daythree-humidity").innerHTML = "Humidity: " + data.daily[2].humidity
                     document.getElementById("dayfour-humidity").innerHTML = "Humidity: " + data.daily[3].humidity
                     document.getElementById("dayfive-humidity").innerHTML = "Humidity: " + data.daily[4].humidity
-                }
             })
         }
     })
