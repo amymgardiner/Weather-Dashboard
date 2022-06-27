@@ -24,8 +24,9 @@ var getLatLon = function(zipCode) {
                 var lon = data.lon
                 var lat = data.lat
                 getWeather(lat, lon)
+                fivedayForecast(lat, lon)
 
-                // get city name from api and display on screen
+                // get city name from api and display on screen in current weather section
                 var cityName = data.name
                 cityTitle.innerHTML = cityName;
                 var cityDiv = document.querySelector("#current-city")
@@ -53,13 +54,16 @@ var getWeather = function(lat, lon) {
     .then(function(response) {
         if(response.ok){
             response.json().then(function(data){
+            // get time zone and send to time zone function to display in current weather section
             var timeZone = data.timezone
             todayDate(timeZone)
 
+            // display current weather icon
             var currentIcon = data.current.weather[0].icon
             cityTitle.innerHTML += "  " + `<img src="http://openweathermap.org/img/wn/${currentIcon}.png">`
 
 
+            // display current weather temp, wind, humidity, and index
             var temp = data.current.temp
             var wind = data.current.wind_speed
             var humidity = data.current.humidity
@@ -81,6 +85,56 @@ var getWeather = function(lat, lon) {
     })
 }
 
+var fivedayForecast = function (lat, lon) {
+    var weatherApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`
+
+    fetch(weatherApi)
+    .then(function(response) {
+        if(response.ok){
+            response.json().then(function(data){
+
+                document.getElementById("forecast").textContent = "Five Day Forecast"
+                document.getElementById("five-day-forecast").classList = "border border-dark div-colortwo"
+
+                for(var i = 0; i < data.daily.length; i++) {
+                    if (i === 5) { break; }
+
+                    document.getElementById("dayone").innerHTML = luxon.DateTime.fromMillis((data.daily[0].dt * 1000)).toFormat('MM-dd-yyyy')
+                    document.getElementById("daytwo").innerHTML = luxon.DateTime.fromMillis((data.daily[1].dt * 1000)).toFormat('MM-dd-yyyy')
+                    document.getElementById("daythree").innerHTML = luxon.DateTime.fromMillis((data.daily[2].dt * 1000)).toFormat('MM-dd-yyyy')
+                    document.getElementById("dayfour").innerHTML = luxon.DateTime.fromMillis((data.daily[3].dt * 1000)).toFormat('MM-dd-yyyy')
+                    document.getElementById("dayfive").innerHTML = luxon.DateTime.fromMillis((data.daily[4].dt * 1000)).toFormat('MM-dd-yyyy')
+
+                    document.getElementById("dayone-icon").innerHTML = `<img src="http://openweathermap.org/img/wn/${data.daily[0].weather[0].icon}.png">`
+                    document.getElementById("daytwo-icon").innerHTML = `<img src="http://openweathermap.org/img/wn/${data.daily[1].weather[0].icon}.png">`
+                    document.getElementById("daythree-icon").innerHTML = `<img src="http://openweathermap.org/img/wn/${data.daily[2].weather[0].icon}.png">`
+                    document.getElementById("dayfour-icon").innerHTML = `<img src="http://openweathermap.org/img/wn/${data.daily[3].weather[0].icon}.png">`
+                    document.getElementById("dayfive-icon").innerHTML = `<img src="http://openweathermap.org/img/wn/${data.daily[4].weather[0].icon}.png">`
+
+                    document.getElementById("dayone-temp").innerHTML = "Temp: " + data.daily[0].temp.day
+                    document.getElementById("daytwo-temp").innerHTML = "Temp: " + data.daily[1].temp.day
+                    document.getElementById("daythree-temp").innerHTML = "Temp: " + data.daily[2].temp.day
+                    document.getElementById("dayfour-temp").innerHTML = "Temp: " + data.daily[3].temp.day
+                    document.getElementById("dayfive-temp").innerHTML = "Temp: " + data.daily[4].temp.day
+
+                    document.getElementById("dayone-wind").innerHTML = "Wind: " + data.daily[0].wind_speed
+                    document.getElementById("daytwo-wind").innerHTML = "Wind: " + data.daily[1].wind_speed
+                    document.getElementById("daythree-wind").innerHTML = "Wind: " + data.daily[2].wind_speed
+                    document.getElementById("dayfour-wind").innerHTML = "Wind: " + data.daily[3].wind_speed
+                    document.getElementById("dayfive-wind").innerHTML = "Wind: " + data.daily[4].wind_speed
+
+
+                    document.getElementById("dayone-humidity").innerHTML = "Humidity: " + data.daily[0].humidity
+                    document.getElementById("daytwo-humidity").innerHTML = "Humidity: " + data.daily[1].humidity
+                    document.getElementById("daythree-humidity").innerHTML = "Humidity: " + data.daily[2].humidity
+                    document.getElementById("dayfour-humidity").innerHTML = "Humidity: " + data.daily[3].humidity
+                    document.getElementById("dayfive-humidity").innerHTML = "Humidity: " + data.daily[4].humidity
+                }
+            })
+        }
+    })
+}
+
 // display alert if zip code is not entered correctly, then reload the page when alert is closed
 var displayError = function() {
 var errorAlert = document.querySelector("#current-city")
@@ -98,14 +152,3 @@ closeButton.addEventListener("click", function closeButtonHandler() {
 
 // all functions run after user enters in a zip code and clicks the search button
 searchBtn.addEventListener("click", getZipCode)
-
-
-
-
-
-// var dayOneTimeStamp = data.daily[0].dt
-// var millisecond = dayOneTimeStamp * 1000
-// var dateObject = new Date(millisecond)
-// var humanDateFormat = luxon.DateTime.now(dateObject).setZone(`${timeZone}`).toFormat('MM-dd-yyyy')
-// var displaydayOne = document.querySelector(".dayone")
-// displaydayOne.innerHTML = humanDateFormat
