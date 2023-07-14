@@ -32,7 +32,7 @@ var getZipCode = function(event, zipCode) {
                 cityTitle.innerHTML = cityName;
 
                 localStorage.setItem("recentsearch", JSON.stringify(data));
-                cityButtons.innerHTML += `<button type="button" class="btn cities" data-city='${JSON.stringify(data)}'>${data.name} + ${data.zip}</button>`;
+                cityButtons.insertAdjacentHTML('afterbegin', `<button type="button" class="btn cities" data-city='${JSON.stringify(data)}'>${data.name} + ${data.zip}</button>`);
             });
         } else {
             displayError();

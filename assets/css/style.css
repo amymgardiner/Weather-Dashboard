@@ -45,9 +45,19 @@ header {
     width: 100%;
 }
 
+.button-container {
+    width: 100%;
+}
+
 .cities {
     margin: 5px;
-    width: 100%;
+    width: 95%;
+}
+
+#city-buttons {
+    max-height: calc(100vh - 355px);
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .recent-searches {
@@ -129,16 +139,23 @@ header {
         text-align: center;
     }
 
+    #city-buttons {
+        max-height: calc(100vh - 455px);
+    }
+
     #current-city {
         float: none;
         width: 100%;
         text-align: center;
+        height: max-content;
+        margin-left: auto;
     }
 
     #five-day-forecast {
         float: none;
         width: 100%;
         text-align: center;
+        margin-left: auto;
     }
 }
 
@@ -147,8 +164,4 @@ header {
     header {
         text-align: center;
     }
-
-     #current-city {
-        height: max-content;
-     }
 }
