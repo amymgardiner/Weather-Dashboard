@@ -1,18 +1,18 @@
-var apiKey = "66bf34535fb3ce4cc5102bab886f4c2b"
-searchBtn = document.querySelector(".search-button")
-var cityTitle = document.querySelector("#city-name")
-var cityButtons = document.querySelector("#city-buttons")
-var currentWeatherContainer = document.querySelector("#current-city")
-var searchValue = document.getElementById('search-input')
-var recentSearch = JSON.parse(localStorage.getItem("recentsearch"))
+var apiKey = "66bf34535fb3ce4cc5102bab886f4c2b";
+searchBtn = document.querySelector(".search-button");
+var cityTitle = document.querySelector("#city-name");
+var cityButtons = document.querySelector("#city-buttons");
+var currentWeatherContainer = document.querySelector("#current-city");
+var searchValue = document.getElementById('search-input');
+var recentSearch = JSON.parse(localStorage.getItem("recentsearch"));
 
 // function to get city's zip code from user
 // the zip code is used to get the city's name for the HTML and used to get the latitude and longitude
 // the lat and lon are used to call the next function
-var getZipCode = function(event) {
-    event.preventDefault()
-    var zipCode = document.querySelector(".form-control").value.trim()
-    var zipApi = `https://api.openweathermap.org/geo/1.0/zip?zip=${zipCode}&appid=${apiKey}`
+var getZipCode = function(event, zipCode) {
+    event.preventDefault();
+    zipCode = zipCode || document.querySelector(".form-control").value.trim();
+    var zipApi = `https://api.openweathermap.org/geo/1.0/zip?zip=${zipCode}&appid=${apiKey}`;  
    
     fetch(zipApi)
     .then(function(response) {
@@ -20,89 +20,89 @@ var getZipCode = function(event) {
             response.json().then(function(data){
 
                 // get lat and lon for next function
-                var lon = data.lon
-                var lat = data.lat
-                getWeather(lat, lon)
-                fivedayForecast(lat, lon)
+                var lon = data.lon;
+                var lat = data.lat;
+                getWeather(lat, lon);
+                fivedayForecast(lat, lon);
 
                 currentWeatherContainer.classList = "border border-dark div-color"
 
                 // get city name from api and display on screen in current weather section
-                var cityName = data.name
-                cityTitle.innerHTML = cityName
+                var cityName = data.name;
+                cityTitle.innerHTML = cityName;
 
-                localStorage.setItem("recentsearch", JSON.stringify(data))
-                cityButtons.innerHTML += `<button type="button" class="btn cities">${data.name} + ${data.zip}</button>`
-            })
+                localStorage.setItem("recentsearch", JSON.stringify(data));
+                cityButtons.innerHTML += `<button type="button" class="btn cities" data-city='${JSON.stringify(data)}'>${data.name} + ${data.zip}</button>`;
+            });
         } else {
-            displayError()
+            displayError();
         }
-    })
-}
+    });
+};
 
 
 // the weather app is finally called to get the rest of the html weather information using the lat and lon
 var getWeather = function(lat, lon) {
     searchValue.value = ""
-    var weatherApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`
+    var weatherApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
 
     fetch(weatherApi)
     .then(function(response) {
         if(response.ok){
             response.json().then(function(data){
             // get time zone and send to time zone function to display in current weather section
-            var timeZone = data.timezone
-            var date = luxon.DateTime.now().setZone(`${timeZone}`).toFormat('MM-dd-yyyy')
+            var timeZone = data.timezone;
+            var date = luxon.DateTime.now().setZone(`${timeZone}`).toFormat('MM-dd-yyyy');
 
             // display current weather icon and date from time zone in after current city name
-            var currentIcon = data.current.weather[0].icon
-            cityTitle.innerHTML += "  " + `${date}` + `<img src="https://openweathermap.org/img/wn/${currentIcon}.png">`
+            var currentIcon = data.current.weather[0].icon;
+            cityTitle.innerHTML += "  " + `${date}` + `<img src="https://openweathermap.org/img/wn/${currentIcon}.png">`;
 
             // display current weather temp, wind, humidity, and index
-            var temp = data.current.temp
-            var wind = data.current.wind_speed
-            var humidity = data.current.humidity
-            var uvIndex = data.current.uvi
+            var temp = data.current.temp;
+            var wind = data.current.wind_speed;
+            var humidity = data.current.humidity;
+            var uvIndex = data.current.uvi;
             
-            var displayTemp = document.querySelector("#temp")
-            displayTemp.innerHTML = "Temperature: " + temp + "°F"
+            var displayTemp = document.querySelector("#temp");
+            displayTemp.innerHTML = "Temperature: " + temp + "°F";
 
-            var displayWind = document.querySelector("#wind")
-            displayWind.innerHTML = "Wind: " + wind + " MPH"
+            var displayWind = document.querySelector("#wind");
+            displayWind.innerHTML = "Wind: " + wind + " MPH";
 
-            var displayHumidity = document.querySelector("#humidity")
-            displayHumidity.innerHTML = "Humidity: " + humidity + "%"
+            var displayHumidity = document.querySelector("#humidity");
+            displayHumidity.innerHTML = "Humidity: " + humidity + "%";
 
-            var displayUV = document.querySelector("#uv")
-            displayUV.innerHTML = "UV Index: " + uvIndex
+            var displayUV = document.querySelector("#uv");
+            displayUV.innerHTML = "UV Index: " + uvIndex;
             
-            uvIndexColor(uvIndex)
-            })
+            uvIndexColor(uvIndex);
+            });
         }  
-    })
-}
+    });
+};
 
 // function to display uv index level with color codes from bootstrap
 var uvIndexColor = function(uvIndex) {
-    var uvColor = document.querySelector("#uv")
+    var uvColor = document.querySelector("#uv");
     if(uvIndex < 3) {
-        uvColor.classList = "bg-primary stats"
+        uvColor.classList = "bg-primary stats";
     } else if(uvIndex < 6) {
-        uvColor.classList = "bg-success stats"
+        uvColor.classList = "bg-success stats";
     } else if(uvIndex < 8) {
-        uvColor.classList = "bg-warning stats"
+        uvColor.classList = "bg-warning stats";
     } else if(uvIndex < 11) {
-        uvColor.classList = "bg-danger stats"
+        uvColor.classList = "bg-danger stats";
     } else {
-        uvColor.classList = "bg-dark stats"
+        uvColor.classList = "bg-dark stats";
     }
-}
+};
 
 
 // five day forecast function to fetch from weather api, loop through daily array, grab info from first five days
 // displays on screen under current day's weather
 var fivedayForecast = function (lat, lon) {
-    var weatherApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`
+    var weatherApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
 
     fetch(weatherApi)
     .then(function(response) {
@@ -141,10 +141,10 @@ var fivedayForecast = function (lat, lon) {
                     document.getElementById("daythree-humidity").innerHTML = "Humidity: " + data.daily[3].humidity
                     document.getElementById("dayfour-humidity").innerHTML = "Humidity: " + data.daily[4].humidity
                     document.getElementById("dayfive-humidity").innerHTML = "Humidity: " + data.daily[5].humidity
-            })
+            });
         }
-    })
-}
+    });
+};
 
 // display alert if zip code is not entered correctly, then reload the page when alert is closed
 var displayError = function() {
@@ -154,12 +154,20 @@ Please enter in a valid zip code.
 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
   <span aria-hidden="true">&times;</span>
 </button>
-</div>`
+</div>`;
 closeButton = document.querySelector(".close");
 closeButton.addEventListener("click", function closeButtonHandler() {
-    location.reload()
+    location.reload();
 })
 }
 
 // all functions run after user enters in a zip code and clicks the search button
-searchBtn.addEventListener("click", getZipCode)
+searchBtn.addEventListener("click", getZipCode);
+
+cityButtons.addEventListener("click", function(event) {
+    var target = event.target;
+    if (target.matches(".btn.cities")) {
+      var cityData = JSON.parse(target.dataset.city);
+      getZipCode(event, cityData.zip);
+    }
+});
