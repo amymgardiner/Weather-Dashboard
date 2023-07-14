@@ -17,6 +17,11 @@ header {
     padding: 25px 0 25px 0;
 }
 
+.wrapper {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
 /* side div with search bar and list of cities to select from */
 #aside {
     border: 2px solid black;
@@ -64,7 +69,13 @@ header {
 }
 
 #city-name {
-    margin-left: 20px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+#city-stats {
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 .stats {
